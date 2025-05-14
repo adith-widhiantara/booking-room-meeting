@@ -29,7 +29,7 @@ interface Props {
     units: Units[]
 }
 
-export default function Index({ units }: Props) {
+export default function Create({ units }: Props) {
     const [foods, setFoods] = useState<Foods>({
         snack_siang: false,
         makan_siang: false,
