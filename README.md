@@ -35,8 +35,6 @@ Sistem ini dirancang untuk memfasilitasi pemesanan ruang meeting di Divisi GA PL
 * Pastikan Anda sudah menginstal PHP, Composer, Node.js, dan npm di sistem Anda.
 * Laravel versi 12 dan React sebagai framework frontend.
 
-**Langkah 1: Menginstal Laravel (Backend)**
-
 1. Clone repositori ini:
 
    ```bash
@@ -72,7 +70,7 @@ Sistem ini dirancang untuk memfasilitasi pemesanan ruang meeting di Divisi GA PL
 7. Jalankan migrasi untuk membuat tabel di database:
 
    ```bash
-   php artisan migrate
+   php artisan migrate:fresh --seed
    ```
 
 2. Install dependensi frontend menggunakan npm:
@@ -98,3 +96,27 @@ Sistem ini dirancang untuk memfasilitasi pemesanan ruang meeting di Divisi GA PL
 **Langkah 4: Pengujian**
 
 * Setelah instalasi selesai, pastikan aplikasi berjalan dengan baik, dan coba untuk membuat pemesanan ruang meeting dengan memasukkan data yang sesuai.
+
+---
+
+Untuk memudahkan pengujian dan penggunaan aplikasi, **secara default**, telah disediakan akun **admin** yang dapat digunakan untuk login ke dalam sistem. Berikut adalah detail akun admin yang dapat digunakan:
+
+### Akun Admin Default:
+
+* **Email:** `admin@example.com`
+* **Password:** `password`
+
+Akun ini memungkinkan Anda untuk masuk ke sistem dan melakukan manajemen pemesanan ruang meeting serta konfigurasi aplikasi lainnya.
+
+### Cara Login
+
+2. Buka aplikasi di browser Anda, biasanya di `http://localhost:8000/login`.
+
+3. Masukkan email dan password berikut di halaman login:
+
+    * **Email:** `admin@example.com`
+    * **Password:** `password`
+
+Dengan akun ini, Anda dapat mengakses panel admin dan mengelola pemesanan ruang meeting serta mengelola data lainnya dalam aplikasi.
+
+Jika Anda ingin mengubah email atau password, Anda bisa melakukannya melalui fitur manajemen pengguna di dalam aplikasi setelah login, atau langsung mengubahnya di database menggunakan Laravel Tinker atau alat lainnya.
