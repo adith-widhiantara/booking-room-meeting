@@ -1,61 +1,100 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+### Deskripsi Sistem
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem ini dirancang untuk memfasilitasi pemesanan ruang meeting di Divisi GA PLN Group. Proses pemesanan ruang meeting dapat dilakukan oleh seluruh pegawai PLN melalui aplikasi yang memungkinkan pemesanan dilakukan secara langsung oleh masing-masing pegawai atau oleh admin di setiap unit PLN.
 
-## About Laravel
+**Fitur Utama:**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. **Pemesanan Ruang Meeting:**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    * Pegawai dapat melakukan pemesanan ruang meeting secara langsung, dengan memasukkan informasi seperti unit, nama ruang meeting, tanggal dan waktu pelaksanaan meeting, jumlah peserta, dan jenis konsumsi.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. **Jenis Konsumsi:**
 
-## Learning Laravel
+    * Jenis konsumsi ditentukan berdasarkan waktu pelaksanaan meeting:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+        * Meeting sebelum jam 11.00 akan mendapatkan snack pagi.
+        * Meeting antara jam 11.00 dan 14.00 akan mendapatkan makan siang.
+        * Meeting setelah jam 14.00 akan mendapatkan snack sore.
+        * Jika meeting berlangsung di antara jam 09.00 sampai 16.00, peserta akan mendapatkan snack pagi, makan siang, dan snack sore.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **Harga Konsumsi:**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    * Setiap jenis konsumsi memiliki harga paket tersendiri, dengan snack pagi sebesar Rp. 20.000, makan siang sebesar Rp. 30.000, dan snack sore sebesar Rp. 20.000 per orang.
+    * Nominal biaya dihitung otomatis berdasarkan jumlah peserta dan jenis konsumsi yang dipilih.
 
-## Laravel Sponsors
+4. **Validasi:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    * Waktu mulai tidak boleh lebih besar dari waktu selesai.
+    * Waktu selesai tidak boleh lebih kecil dari waktu mulai.
+    * Jumlah peserta tidak boleh lebih besar dari kapasitas ruangan.
 
-### Premium Partners
+### Cara Menginstal Aplikasi
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**Prasyarat:**
 
-## Contributing
+* Pastikan Anda sudah menginstal PHP, Composer, Node.js, dan npm di sistem Anda.
+* Laravel versi 12 dan React sebagai framework frontend.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Langkah 1: Menginstal Laravel (Backend)**
 
-## Code of Conduct
+1. Clone repositori ini:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   git clone https://github.com/adith-widhiantara/booking-room-meeting
+   ```
 
-## Security Vulnerabilities
+2. Pindah ke direktori project:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   ```bash
+   cd booking-room-meeting
+   ```
 
-## License
+3. Install dependensi Laravel menggunakan Composer:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```bash
+   composer install
+   ```
+
+4. Salin file `.env.example` ke `.env`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+5. Generate key aplikasi Laravel:
+
+   ```bash
+   php artisan key:generate
+   ```
+
+6. Setup database dan konfigurasi lainnya di file `.env`.
+
+7. Jalankan migrasi untuk membuat tabel di database:
+
+   ```bash
+   php artisan migrate
+   ```
+
+2. Install dependensi frontend menggunakan npm:
+
+   ```bash
+   npm install
+   ```
+
+3. Jalankan aplikasi React:
+
+   ```bash
+   npm run dev
+   ```
+
+* Jalankan server Laravel:
+
+  ```bash
+  php artisan serve
+  ```
+
+* Aplikasi sekarang dapat diakses melalui browser di `http://localhost:8000`.
+
+**Langkah 4: Pengujian**
+
+* Setelah instalasi selesai, pastikan aplikasi berjalan dengan baik, dan coba untuk membuat pemesanan ruang meeting dengan memasukkan data yang sesuai.
