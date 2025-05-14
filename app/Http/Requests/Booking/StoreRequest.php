@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
         return [
             'unit' => ['required', 'exists:units,name'],
             'room' => ['required', 'exists:rooms,name'],
-            'date' => ['required', 'date', 'date_format:Y-m-d'],
+            'date' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:today'],
             'start_time' => ['required', 'date_format:H:i'],
             'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
             'number_of_guests' => ['required', 'integer', 'min:1'],

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ConsumptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::group([
     'middleware' => ['auth', 'verified'],
 ], function () {
     Route::resource('booking-rooms', BookingController::class);
+
+    Route::get('consumption', ConsumptionController::class)->name('consumption.index');
 });
 
 require __DIR__.'/auth.php';
