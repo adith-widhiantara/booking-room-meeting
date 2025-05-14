@@ -23,12 +23,16 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,id'],
-            'room_id' => ['required', 'exists:rooms,id'],
-            'date' => ['required', 'date'],
+            'unit' => ['required', 'exists:units,name'],
+            'room' => ['required', 'exists:rooms,name'],
+            'date' => ['required', 'date', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
-            'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
+            'end_time' => ['required', 'date_format:H:i'],
             'number_of_guests' => ['required', 'integer', 'min:1'],
+            'foods' => ['required', 'array'],
+            'foods.snack_siang' => ['required', 'boolean'],
+            'foods.makan_siang' => ['required', 'boolean'],
+            'foods.snack_sore' => ['required', 'boolean'],
         ];
     }
 }
