@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Enums\StatusBooking;
+use App\Models\Booking;
 use App\Models\Room;
 use App\Models\User;
-use App\Models\Booking;
-use App\Enums\StatusBooking;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

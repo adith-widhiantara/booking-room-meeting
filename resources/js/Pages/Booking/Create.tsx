@@ -50,6 +50,22 @@ export default function Index({ units }: Props) {
     })
     const [capacity, setCapacity] = useState<number | string>('')
     const [resetRoom, setResetRoom] = useState<number>(1)
+    const [canSubmit, setCanSubmit] = useState<boolean>(false)
+
+    useEffect(() => {
+        if (
+            data.unit != '' &&
+            data.room != '' &&
+            data.date != '' &&
+            data.start_time != '' &&
+            data.end_time != '' &&
+            data.number_of_guests > 0
+        ) {
+            setCanSubmit(true)
+        } else {
+            setCanSubmit(false)
+        }
+    }, [data])
 
     useEffect(() => {
         const selectedUnit = units.find((unit) => unit.name === data.unit)
@@ -354,6 +370,7 @@ export default function Index({ units }: Props) {
                                         className={
                                             'inline-flex items-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-150 ease-in-out hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-25'
                                         }
+                                        disabled={!canSubmit || processing}
                                     >
                                         Simpan
                                     </PrimaryButton>

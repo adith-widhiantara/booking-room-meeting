@@ -1,10 +1,10 @@
 <?php
 
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -31,4 +31,4 @@ Route::group([
     Route::resource('booking-rooms', BookingController::class);
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

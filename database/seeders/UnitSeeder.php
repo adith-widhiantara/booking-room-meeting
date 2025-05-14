@@ -19,7 +19,7 @@ class UnitSeeder extends Seeder
             // Create 5 rooms for each unit using the RoomFactory
             for ($i = 0; $i < 5; $i++) {
                 $unit->rooms()->create([
-                    'name' => 'Room - ' . $unit->name . ' - ' . ($i + 1),
+                    'name' => 'Room - '.$unit->name.' - '.($i + 1),
                     'capacity' => random_int(1, 100),
                 ]);
             }

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Models\Unit;
-use Inertia\Response;
-use App\Models\Booking;
-use Illuminate\Http\Request;
-use Inertia\ResponseFactory;
-use App\Http\Services\BookingService;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Booking\StoreRequest;
+use App\Http\Services\BookingService;
+use App\Models\Booking;
+use App\Models\Unit;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class BookingController extends Controller
 {
@@ -32,6 +32,7 @@ class BookingController extends Controller
             ->get()
             ->map(function ($booking) {
                 $booking->total_price = $booking->consumptions_sum_price * $booking->number_of_guests;
+
                 return $booking;
             });
 
@@ -56,6 +57,7 @@ class BookingController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws Exception
      */
     public function store(StoreRequest $request): RedirectResponse

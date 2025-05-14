@@ -2,35 +2,43 @@
 
 namespace App\Http\Services;
 
-use Exception;
-use App\Models\Unit;
-use App\Models\Booking;
 use App\Enums\Consumption;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Booking\StoreRequest;
+use App\Models\Booking;
+use App\Models\Unit;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 final class BookingService extends BaseService
 {
     /**
-     * @param FormRequest $request
-     * @return Booking
+     * @param  FormRequest  $request
+     *
      * @throws Exception
      */
-    public function store(FormRequest $request): Booking
+    public function store(StoreRequest|FormRequest $request): Booking
     {
+        $unit = Unit::query()
+            ->where('name', $request->unit)
+            ->with(['rooms'])
+            ->first();
+
+        $room = $unit->rooms()
+            ->where('name', $request->room)
+            ->first();
+
+        if ($request->number_of_guests > $room->capacity) {
+            throw ValidationException::withMessages([
+                'number_of_guests' => 'Jumlah tamu melebihi kapasitas ruangan. Maksimal '.$room->capacity.' orang.',
+            ]);
+        }
+
         try {
             // start transaction
             DB::beginTransaction();
-
-            $unit = Unit::query()
-                ->where('name', $request->unit)
-                ->with(['rooms'])
-                ->first();
-
-            $room = $unit->rooms()
-                ->where('name', $request->room)
-                ->first();
 
             $booking = Booking::query()
                 ->create([
@@ -76,8 +84,6 @@ final class BookingService extends BaseService
     }
 
     /**
-     * @param Model $model
-     * @param FormRequest $request
      * @return mixed
      */
     public function update(Model $model, FormRequest $request)
@@ -86,7 +92,6 @@ final class BookingService extends BaseService
     }
 
     /**
-     * @param Model $model
      * @return mixed
      */
     public function delete(Model $model)
