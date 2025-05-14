@@ -29,7 +29,8 @@ Route::middleware('auth')->group(function () {
 Route::group([
     'middleware' => ['auth', 'verified'],
 ], function () {
-    Route::resource('booking', BookingController::class);
+    Route::put('/booking/{booking}/{status}', [BookingController::class, 'updateStatus'])->name('booking.status');
+    Route::resource('booking', BookingController::class)->only(['index', 'create', 'store', 'show']);
 
     Route::get('consumption', ConsumptionController::class)->name('consumption.index');
 });

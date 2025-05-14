@@ -1,7 +1,10 @@
+import DangerButton from '@/Components/DangerButton'
 import InputLabel from '@/Components/InputLabel'
+import PrimaryButton from '@/Components/PrimaryButton'
 import TextInput from '@/Components/TextInput'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, useForm, usePage } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
 
 interface Unit {
     name: string
@@ -15,6 +18,7 @@ interface Room {
 
 interface Props {
     booking: {
+        id: number
         room: Room
         date: string
         start_time: string
@@ -25,7 +29,27 @@ interface Props {
     }
 }
 
+interface User {
+    role: string
+}
+
 export default function Show({ booking }: Props) {
+    const user = usePage().props.auth.user as unknown as User
+
+    const { data, setData, put, processing } = useForm({
+        status: '',
+    })
+
+    const [isAdmin, setIsAdmin] = useState<boolean>(false)
+
+    useEffect(() => {
+        setIsAdmin(user.role === 'admin' || user.role === 'super_admin')
+    }, [user])
+
+    const update = (status: string) => {
+        put(route('booking.status', [booking.id, status]))
+    }
+
     return (
         <AuthenticatedLayout
             header={
@@ -188,6 +212,26 @@ export default function Show({ booking }: Props) {
                             <hr className={'my-8 border-t border-gray-300'} />
 
                             <div className="flex justify-end gap-4">
+                                {isAdmin && (
+                                    <>
+                                        <PrimaryButton
+                                            onClick={() => {
+                                                update('approve')
+                                            }}
+                                            disabled={processing}
+                                        >
+                                            Approve
+                                        </PrimaryButton>
+                                        <DangerButton
+                                            onClick={() => {
+                                                update('reject')
+                                            }}
+                                            disabled={processing}
+                                        >
+                                            Reject
+                                        </DangerButton>
+                                    </>
+                                )}
                                 <Link
                                     href={route('booking.index')}
                                     className={

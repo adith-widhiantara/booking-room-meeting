@@ -8,7 +8,6 @@ use App\Models\Booking;
 use App\Models\Unit;
 use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -72,7 +71,7 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Booking $booking)
+    public function show(Booking $booking): Response|ResponseFactory
     {
         $booking
             ->load(['room.unit', 'consumptions'])
@@ -86,27 +85,12 @@ class BookingController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function updateStatus(Booking $booking, $status): RedirectResponse
     {
-        //
-    }
+        $this->bookingService->updateStatus($booking, $status);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()
+            ->route('booking.index')
+            ->with('success', 'Booking status updated successfully.');
     }
 }

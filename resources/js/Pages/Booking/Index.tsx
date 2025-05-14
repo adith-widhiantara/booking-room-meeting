@@ -42,11 +42,6 @@ export default function Index({ bookings }: Props) {
             name: 'Actions',
             cell: (row: any) => (
                 <div className="flex space-x-2">
-                    <Link href={route('booking.edit', row.id)}>
-                        <PrimaryButton className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
-                            Edit
-                        </PrimaryButton>
-                    </Link>
                     <Link href={route('booking.show', row.id)}>
                         <PrimaryButton className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700">
                             View

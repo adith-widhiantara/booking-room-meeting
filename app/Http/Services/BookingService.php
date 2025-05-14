@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Enums\Consumption;
+use App\Enums\StatusBooking;
 use App\Http\Requests\Booking\StoreRequest;
 use App\Models\Booking;
 use App\Models\Unit;
@@ -15,8 +16,6 @@ use Illuminate\Validation\ValidationException;
 final class BookingService extends BaseService
 {
     /**
-     * @param  FormRequest  $request
-     *
      * @throws Exception
      */
     public function store(StoreRequest|FormRequest $request): Booking
@@ -102,16 +101,37 @@ final class BookingService extends BaseService
     /**
      * @return mixed
      */
-    public function update(Model $model, FormRequest $request)
+    public function delete(Model $model)
     {
-        // TODO: Implement update() method.
+        // TODO: Implement delete() method.
+    }
+
+    public function updateStatus(Booking $booking, string $status): Booking
+    {
+        switch ($status) {
+            case 'approve':
+                $statusbooking = StatusBooking::CONFIRMED;
+                break;
+            case 'reject':
+                $statusbooking = StatusBooking::CANCELLED;
+                break;
+            default:
+                $statusbooking = StatusBooking::PENDING;
+                break;
+        }
+
+        $booking->update([
+            'status' => $statusbooking,
+        ]);
+
+        return $booking;
     }
 
     /**
      * @return mixed
      */
-    public function delete(Model $model)
+    public function update(Model $model, FormRequest $request)
     {
-        // TODO: Implement delete() method.
+        // TODO: Implement update() method.
     }
 }
