@@ -40,7 +40,7 @@ Sistem ini dirancang untuk memfasilitasi pemesanan ruang meeting di Divisi GA PL
 1. Clone repositori ini:
 
    ```bash
-   git clone https://github.com/adith-widhiantara/booking-room-meeting
+   git clone https://github.com/adith-widhiantara/booking-room-meeting.git
    ```
 
 2. Pindah ke direktori project:
