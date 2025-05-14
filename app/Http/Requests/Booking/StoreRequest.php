@@ -27,7 +27,7 @@ class StoreRequest extends FormRequest
             'room' => ['required', 'exists:rooms,name'],
             'date' => ['required', 'date', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
-            'end_time' => ['required', 'date_format:H:i'],
+            'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
             'number_of_guests' => ['required', 'integer', 'min:1'],
             'foods' => ['required', 'array'],
             'foods.snack_siang' => ['required', 'boolean'],
