@@ -99,7 +99,7 @@ export default function Index({ units }: Props) {
     const submit: FormEventHandler = (e) => {
         e.preventDefault()
 
-        post(route('booking-rooms.store'))
+        post(route('booking.store'))
     }
 
     return (
@@ -358,7 +358,7 @@ export default function Index({ units }: Props) {
 
                                 <div className="flex justify-end gap-4">
                                     <Link
-                                        href={route('booking-rooms.index')}
+                                        href={route('booking.index')}
                                         className={
                                             'inline-flex items-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-semibold uppercase text-red-500 shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-25'
                                         }

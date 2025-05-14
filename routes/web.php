@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 Route::group([
     'middleware' => ['auth', 'verified'],
 ], function () {
-    Route::resource('booking-rooms', BookingController::class);
+    Route::resource('booking', BookingController::class);
 
     Route::get('consumption', ConsumptionController::class)->name('consumption.index');
 });

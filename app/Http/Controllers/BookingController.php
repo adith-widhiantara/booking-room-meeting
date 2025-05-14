@@ -65,16 +65,25 @@ class BookingController extends Controller
         $this->bookingService->store($request);
 
         return redirect()
-            ->route('booking-rooms.index')
+            ->route('booking.index')
             ->with('success', 'Booking created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Booking $booking)
     {
-        //
+        $booking
+            ->load(['room.unit', 'consumptions'])
+            ->loadSum('consumptions', 'price');
+
+        $booking->total_price = $booking->consumptions_sum_price * $booking->number_of_guests;
+        $booking->consumptions_data = $booking->consumptions->pluck('name')->implode(', ');
+
+        return inertia('Booking/Show', [
+            'booking' => $booking,
+        ]);
     }
 
     /**
