@@ -36,6 +36,22 @@ final class BookingService extends BaseService
             ]);
         }
 
+        // check booking conflict
+        $conflict = Booking::query()
+            ->where('room_id', $room->id)
+            ->where('date', $request->date)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('start_time', [$request->start_time, $request->end_time])
+                    ->orWhereBetween('end_time', [$request->start_time, $request->end_time]);
+            })
+            ->exists();
+
+        if ($conflict) {
+            throw ValidationException::withMessages([
+                'date' => 'Ruangan sudah dipesan pada waktu tersebut.',
+            ]);
+        }
+
         try {
             // start transaction
             DB::beginTransaction();
